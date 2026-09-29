@@ -17,8 +17,15 @@ internal class ProductsAdderService : IProductsAdderService
         _mapper = mapper; 
     }
 
-    public Task<ProductDTO?> AddProduct(ProductDTO productToAdd)
+    public async Task<ProductDTO?> AddProduct(ProductDTO productToAdd)
     {
         var product = _mapper.Map<Product>(productToAdd);
+
+        await _productsAdderRepository.AddProduct(product);
+
+        if (product is null)
+            return null;
+        else
+            return productToAdd;
     }
 }
