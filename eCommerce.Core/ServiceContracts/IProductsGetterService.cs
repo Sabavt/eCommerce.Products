@@ -7,7 +7,7 @@ namespace eCommerce.Core.ServiceContracts;
 /// <summary>
 /// Represents business logic for manipulating products
 /// </summary>
-internal interface IProductsGetterService
+public interface IProductsGetterService
 {
     /// <summary>
     /// Retrieves all products asynchronously.

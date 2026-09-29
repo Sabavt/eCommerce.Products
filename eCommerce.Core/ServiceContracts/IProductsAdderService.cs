@@ -5,7 +5,7 @@ namespace eCommerce.Core.ServiceContracts;
 /// <summary>
 /// Represents business logic for adding products
 /// </summary>
-internal interface IProductsAdderService
+public interface IProductsAdderService
 {  
     /// <summary>
     /// Adds a new product asynchronously, if product is valid.

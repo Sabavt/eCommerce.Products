@@ -15,6 +15,6 @@ app.UseStaticFiles();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapGroup("products/").MapProductsAPI();
+app.MapGroup("api/products").MapProductsAPI();
 
 app.Run(); 

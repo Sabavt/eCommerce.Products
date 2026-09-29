@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents business logic for deleting products
 /// </summary>
-internal interface IProductsDeleterService
+public interface IProductsDeleterService
 { 
     /// <summary>
     /// Removes specified product, if id is valid.

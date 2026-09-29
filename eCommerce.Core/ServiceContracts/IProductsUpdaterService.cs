@@ -5,7 +5,7 @@ namespace eCommerce.Core.ServiceContracts;
 /// <summary>
 /// Represents business logic for updating products
 /// </summary>
-internal interface IProductsUpdaterService
+public interface IProductsUpdaterService
 { 
     /// <summary>
     /// Updates product entity.
