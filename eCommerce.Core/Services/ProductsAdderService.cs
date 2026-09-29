@@ -6,7 +6,7 @@ using eCommerce.Core.ServiceContracts;
 
 namespace eCommerce.Core.Services;
 
-internal class ProductsAdderService : BaseService, IProductsAdderService
+public class ProductsAdderService : BaseService, IProductsAdderService
 {
     private readonly IProductsAdderRepository _productsAdderRepository; 
 
