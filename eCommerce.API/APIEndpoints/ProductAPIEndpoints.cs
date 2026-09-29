@@ -18,7 +18,22 @@ public static class ProductAPIEndpoints
             return Results.Ok(product);
         });
 
+        app.MapGet("/search/{productName:alpha}", async (IProductsGetterService productsGetterService, string productName) =>
+        {
+            var lowerSearchTerm = productName.ToLower();
 
+            var product = await productsGetterService.GetProductByCondition(t =>
+                t.ProductName.ToLower().Contains(lowerSearchTerm) ||
+                (t.Category != null && t.Category.ToLower().Contains(lowerSearchTerm))
+            );
+            return Results.Ok(product);
+        });
+
+        app.MapPost("/", async (IProductsAdderService productsGetterService) =>
+        {
+            var products = await productsGetterService.AddProduct();
+            return Results.Ok(products);
+        });
 
 
 
