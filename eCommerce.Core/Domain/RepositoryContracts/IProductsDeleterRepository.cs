@@ -10,5 +10,5 @@ public interface IProductsDeleterRepository
     /// </summary>
     /// <param name="productIDtoDelete"></param>
     /// <returns>Returns true if deleted, otherwise false.</returns>
-    Task<bool> DeleteProduct(Guid productIDtoDelete);
+    Task<bool> DeleteProduct(int productIDtoDelete);
 } 

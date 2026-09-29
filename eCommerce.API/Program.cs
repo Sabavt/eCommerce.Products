@@ -10,10 +10,7 @@ var app = builder.Build();
 app.UseExceptionMiddleware(); 
 app.UseHsts();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseCors();
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseStaticFiles(); 
 app.MapGroup("api/products").MapProductsAPI();
 
 app.Run(); 

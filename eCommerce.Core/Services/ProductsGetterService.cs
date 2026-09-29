@@ -39,4 +39,4 @@ public class ProductsGetterService : BaseService, IProductsGetterService
 
         return dto_products;
     }
-}
+} 

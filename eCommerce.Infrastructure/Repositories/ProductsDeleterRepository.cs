@@ -13,7 +13,7 @@ public class ProductsDeleterRepository : IProductsDeleterRepository
         _db = db;
     } 
 
-    public async Task<bool> DeleteProduct(Guid productIDtoDelete)
+    public async Task<bool> DeleteProduct(int productIDtoDelete)
     {
         var result = _db.Products.Remove(new Product { ProductID = productIDtoDelete });
         await _db.SaveChangesAsync();

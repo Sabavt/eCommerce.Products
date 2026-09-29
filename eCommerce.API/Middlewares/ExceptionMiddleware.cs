@@ -22,7 +22,7 @@
                 _logger.LogError("Error occured during execution - {exception}", ex);
 
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await httpContext.Response.WriteAsJsonAsync(new {Message = ex});
+                await httpContext.Response.WriteAsJsonAsync(new {Message = ex.Message});
             }
         }
     }

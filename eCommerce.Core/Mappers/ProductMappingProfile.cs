@@ -8,6 +8,6 @@ public class ProductMappingProfile : Profile
 {
     public ProductMappingProfile()
     {
-        CreateMap<ProductDTO, Product>();
+        CreateMap<Product, ProductDTO>(); 
     }
 }

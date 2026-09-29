@@ -14,7 +14,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(products);
         });
 
-        app.MapGet("/search/{productID:guid}", async (IProductsGetterService productsGetterService, Guid productID) =>
+        app.MapGet("/search/{productID:int}", async (IProductsGetterService productsGetterService, int productID) =>
         {
             var product = await productsGetterService.GetProductByCondition(t => t.ProductID == productID);
             return Results.Ok(product);
@@ -55,7 +55,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(products);
         });
 
-        app.MapDelete("/delete/{productID:guid}", async (IProductsDeleterService productsDeleterService, Guid productID) =>
+        app.MapDelete("/{productID:int}", async (IProductsDeleterService productsDeleterService, int productID) =>
         { 
             var isDeleted = await productsDeleterService.DeleteProduct(productID);
             if (isDeleted)

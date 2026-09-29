@@ -13,8 +13,8 @@ public class ProductsDeleterService : BaseService, IProductsDeleterService
         _productsDeleterRepository = productsDeleterRepository; 
     }
 
-    public async Task<bool> DeleteProduct(Guid productIDtoDelete)
+    public async Task<bool> DeleteProduct(int productIDtoDelete)
     {
         return await _productsDeleterRepository.DeleteProduct(productIDtoDelete);
     }
-}
+} 
