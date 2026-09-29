@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace eCommerce.Core.Validators;
 
-public class ProductsValidator : AbstractValidator<Product> 
+public class ProductValidator : AbstractValidator<Product> 
 {
-    public ProductsValidator()
+    public ProductValidator()
     {
         RuleFor(p => p.ProductName)
             .NotNull().WithMessage("Product name cant be null")
