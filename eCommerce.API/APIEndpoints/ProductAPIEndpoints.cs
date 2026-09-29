@@ -1,4 +1,4 @@
-﻿using eCommerce.Core.ServiceContracts; 
+﻿using eCommerce.Core.ServiceContracts;
 
 namespace eCommerce.API.APIEndpoints;
 
@@ -9,10 +9,14 @@ public static class ProductAPIEndpoints
         app.MapGet("/", async (IProductsGetterService productsGetterService) =>
         {
             var products = await productsGetterService.GetProducts();
-            return Results.Ok(products); 
+            return Results.Ok(products);
         });
 
-
+        app.MapGet("/search/{productID:guid}", async (IProductsGetterService productsGetterService, Guid productID) =>
+        {
+            var product = await productsGetterService.GetProductByCondition(t => t.ProductID == productID);
+            return Results.Ok(product);
+        });
 
 
 
