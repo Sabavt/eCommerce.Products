@@ -1,3 +1,4 @@
+using eCommerce.API.APIEndpoints;
 using eCommerce.API.Middlewares;
 using eCommerce.Core;
 
@@ -14,6 +15,6 @@ app.UseStaticFiles();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+app.MapGroup("products/").MapProductsAPI();
 
 app.Run(); 
