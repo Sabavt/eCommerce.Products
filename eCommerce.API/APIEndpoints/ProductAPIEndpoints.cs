@@ -1,4 +1,6 @@
-﻿using eCommerce.Core.ServiceContracts;
+﻿using eCommerce.Core.DTO;
+using eCommerce.Core.ServiceContracts;
+using FluentValidation;
 
 namespace eCommerce.API.APIEndpoints;
 
@@ -29,9 +31,10 @@ public static class ProductAPIEndpoints
             return Results.Ok(product);
         });
 
-        app.MapPost("/", async (IProductsAdderService productsGetterService) =>
+        app.MapPost("/add", async (IProductsAdderService productsGetterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
-            var products = await productsGetterService.AddProduct();
+            await validator.ValidateAsync(productAddRequest);
+            var products = await productsGetterService.AddProduct(productAddRequest);
             return Results.Ok(products);
         });
 
