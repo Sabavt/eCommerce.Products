@@ -14,8 +14,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSwagger();
-app.UseSwaggerUI();
-
+app.UseSwaggerUI(); 
 app.MapGroup("api/products").MapProductsAPI();
 
 app.Run(); 
