@@ -3,28 +3,33 @@ using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Domain.RepositoryContracts;
 using eCommerce.Core.DTO;
 using eCommerce.Core.ServiceContracts;
+using System.Linq.Expressions;
 
 namespace eCommerce.Core.Services;
 
 public class ProductsGetterService : IProductsGetterService
 { 
-    private readonly IProductsGetterRepository _productsAdderRepository; 
+    private readonly IProductsGetterRepository _productsGetterRepository;
+    private readonly IMapper _mapper;
 
-    public ProductsGetterService(IProductsGetterRepository productsAdderRepository)
+    public ProductsGetterService(IProductsGetterRepository productsGetterRepository, IMapper mapper)
     {
-        _productsAdderRepository = productsAdderRepository; 
+        _productsGetterRepository = productsGetterRepository;
+        _mapper = mapper;
     }
-     
-    public Task<ProductDTO?> GetProductByCondition(string productName = "a", decimal productPrice = 0, CategoryOptions category = CategoryOptions.Groceries)
-    { 
-    }
-
-    public Task<List<ProductDTO>> GetProducts()
+      
+    public Task<ProductDTO?> GetProductByCondition(Expression<Func<Product, bool>> expression)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<ProductDTO>?> GetProductsByCondition(ProductDTO product)
+    public Task<List<ProductDTO>> GetProducts()
+    {
+        var products = _productsGetterRepository.GetProducts();
+        _mapper.Map<ProductDTO>
+    } 
+
+    public Task<IEnumerable<ProductDTO>?> GetProductsByCondition(Expression<Func<Product, bool>> expression)
     {
         throw new NotImplementedException();
     }
