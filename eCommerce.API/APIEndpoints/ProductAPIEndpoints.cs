@@ -31,7 +31,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(product);
         });
 
-        app.MapPost("/add", async (IProductsAdderService productsAdderService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
+        app.MapPost("/", async (IProductsAdderService productsAdderService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
             var result = await validator.ValidateAsync(productAddRequest);
             if(!result.IsValid)
@@ -43,7 +43,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(products);
         });
 
-        app.MapPut("/update", async (IProductsUpdaterService productsUpdaterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
+        app.MapPut("/", async (IProductsUpdaterService productsUpdaterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
             var result = await validator.ValidateAsync(productAddRequest);
             if (!result.IsValid)
@@ -61,7 +61,7 @@ public static class ProductAPIEndpoints
             if (isDeleted)
                 return Results.Ok(true);
             else
-                return Results.Problem("Error during deleting product");
+                return Results.Problem("Error during deleting product.");
         });
 
         return app;
