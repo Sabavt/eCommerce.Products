@@ -1,8 +1,6 @@
 ﻿using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Domain.RepositoryContracts;
-using eCommerce.Infrastructure.DatabaseContext;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using eCommerce.Infrastructure.DatabaseContext; 
 
 namespace eCommerce.Infrastructure.Repositories;
 

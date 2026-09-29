@@ -4,7 +4,7 @@ using eCommerce.Infrastructure.DatabaseContext;
 
 namespace eCommerce.Infrastructure.Repositories;
 
-public class ProductsDeleterRepository : IProductsUpdaterRepository
+public class ProductsDeleterRepository : IProductsDeleterRepository
 {
     private readonly ApplicationDbContext _db;
 
