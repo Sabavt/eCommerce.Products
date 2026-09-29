@@ -23,10 +23,12 @@ public class ProductsGetterService : IProductsGetterService
         throw new NotImplementedException();
     }
 
-    public Task<List<ProductDTO>> GetProducts()
+    public async Task<List<ProductDTO>> GetProducts()
     {
-        var products = _productsGetterRepository.GetProducts();
-        _mapper.Map<ProductDTO>
+        var products = await _productsGetterRepository.GetProducts();
+        var dto_products = products.Select(p => _mapper.Map<ProductDTO>(p)).ToList();
+
+        return dto_products;
     } 
 
     public Task<IEnumerable<ProductDTO>?> GetProductsByCondition(Expression<Func<Product, bool>> expression)
