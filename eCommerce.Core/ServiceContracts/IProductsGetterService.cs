@@ -1,4 +1,6 @@
-﻿using eCommerce.Core.DTO; 
+﻿using eCommerce.Core.Domain.Entities;
+using eCommerce.Core.DTO;
+using System.Linq.Expressions;
 
 namespace eCommerce.Core.ServiceContracts;
 
@@ -16,14 +18,14 @@ internal interface IProductsGetterService
     /// <summary>
     /// Retrieves all products based on the specified details.
     /// </summary>
-    /// <param name="product">The products details to search.</param>
+    /// <param name="expression">expression to check.</param>
     /// <returns>Returning collection of matching products.</returns>
-    Task<IEnumerable<ProductDTO>?> GetProductsByCondition(ProductDTO product);
+    Task<IEnumerable<ProductDTO>?> GetProductsByCondition(Expression<Func<Product, bool>> expression);
 
     /// <summary>
     /// Retrieves product based on the specified condition asynchronously.
     /// </summary>
-    /// <param name="product">The product details to search.</param>
+    /// <param name="expression">expression to check.</param>
     /// <returns>Returns matching product.</returns>
-    Task<ProductDTO?> GetProductByCondition(ProductDTO product); 
+    Task<ProductDTO?> GetProductByCondition(Expression<Func<Product, bool>> expression); 
 } 
