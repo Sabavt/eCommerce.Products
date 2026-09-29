@@ -43,7 +43,17 @@ public static class ProductAPIEndpoints
             return Results.Ok(products);
         });
 
-
+        app.MapPut("/update", async (IProductsUpdaterService productsGetterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
+        {
+            var result = await validator.ValidateAsync(productAddRequest);
+            if (!result.IsValid)
+            {
+                Dictionary<string, string[]> errors = result.Errors.GroupBy(t => t.PropertyName).ToDictionary(l => l.Key, l => l.Select(err => err.ErrorMessage).ToArray());
+                return Results.ValidationProblem(errors);
+            }
+            var products = await productsGetterService.UpdateProduct(productAddRequest);
+            return Results.Ok(products);
+        });
 
         return app;
     }
