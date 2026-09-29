@@ -33,7 +33,12 @@ public static class ProductAPIEndpoints
 
         app.MapPost("/add", async (IProductsAdderService productsGetterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
-            await validator.ValidateAsync(productAddRequest);
+            var result = await validator.ValidateAsync(productAddRequest);
+            if(!result.IsValid)
+            {
+                Dictionary<string, string[]> errors = result.Errors.GroupBy(t => t.PropertyName).ToDictionary(l => l.Key, l => l.Select(err => err.ErrorMessage).ToArray());
+                return Results.ValidationProblem(errors);
+            }
             var products = await productsGetterService.AddProduct(productAddRequest);
             return Results.Ok(products);
         });
