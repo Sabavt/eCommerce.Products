@@ -18,9 +18,12 @@ public class ProductsGetterService : IProductsGetterService
         _mapper = mapper;
     }
       
-    public Task<ProductDTO?> GetProductByCondition(Expression<Func<Product, bool>> expression)
+    public async Task<ProductDTO?> GetProductByCondition(Expression<Func<Product, bool>> expression)
     {
-        throw new NotImplementedException();
+        var product = await _productsGetterRepository.GetProductByCondition(expression);
+        var dto_product = _mapper.Map<ProductDTO>(product);
+
+        return dto_product;
     }
 
     public async Task<List<ProductDTO>> GetProducts()
