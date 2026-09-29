@@ -6,15 +6,13 @@ using eCommerce.Core.ServiceContracts;
 
 namespace eCommerce.Core.Services;
 
-internal class ProductsAdderService : IProductsAdderService
+internal class ProductsAdderService : BaseService, IProductsAdderService
 {
-    private readonly IProductsAdderRepository _productsAdderRepository;
-    private readonly IMapper _mapper;
+    private readonly IProductsAdderRepository _productsAdderRepository; 
 
-    public ProductsAdderService(IProductsAdderRepository productsAdderRepository, IMapper mapper)
+    public ProductsAdderService(IProductsAdderRepository productsAdderRepository, IMapper mapper) : base(mapper)
     {
-        _productsAdderRepository = productsAdderRepository;
-        _mapper = mapper; 
+        _productsAdderRepository = productsAdderRepository; 
     }
 
     public async Task<ProductDTO?> AddProduct(ProductDTO productToAdd)

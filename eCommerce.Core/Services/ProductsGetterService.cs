@@ -7,15 +7,13 @@ using System.Linq.Expressions;
 
 namespace eCommerce.Core.Services;
 
-public class ProductsGetterService : IProductsGetterService
+public class ProductsGetterService : BaseService, IProductsGetterService
 { 
-    private readonly IProductsGetterRepository _productsGetterRepository;
-    private readonly IMapper _mapper;
+    private readonly IProductsGetterRepository _productsGetterRepository; 
 
-    public ProductsGetterService(IProductsGetterRepository productsGetterRepository, IMapper mapper)
+    public ProductsGetterService(IProductsGetterRepository productsGetterRepository, IMapper mapper) : base(mapper)
     {
-        _productsGetterRepository = productsGetterRepository;
-        _mapper = mapper;
+        _productsGetterRepository = productsGetterRepository; 
     }
       
     public async Task<ProductDTO?> GetProductByCondition(Expression<Func<Product, bool>> expression)
