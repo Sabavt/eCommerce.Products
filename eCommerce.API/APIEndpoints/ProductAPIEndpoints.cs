@@ -20,7 +20,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(product);
         });
 
-        app.MapGet("/search/{productName:alpha}", async (IProductsGetterService productsGetterService, string productName) =>
+        app.MapGet("/search/{productName}", async (IProductsGetterService productsGetterService, string productName) =>
         {
             var lowerSearchTerm = productName.ToLower();
 

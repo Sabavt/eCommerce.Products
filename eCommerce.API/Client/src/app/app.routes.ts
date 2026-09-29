@@ -9,8 +9,8 @@ import { DeleteProductComponent } from './components/delete-product/delete-produ
 import { NewProductComponent } from './components/new-product/new-product.component';
 
 export const routes: Routes = [
-    { path: 'authentication/register', component: RegisterComponent },
-    { path: 'authentication/login', component: LoginComponent },
+    { path: 'auth/register', component: RegisterComponent },
+    { path: 'auth/login', component: LoginComponent },
     { path: 'products/showcase', component: ShowCaseComponent },
     { path: 'products/search/:str?', component: SearchComponent },
     { path: 'products/search', component: SearchComponent },
@@ -18,6 +18,6 @@ export const routes: Routes = [
     { path: 'products/edit/:productID', component: EditProductComponent },
     { path: 'products/delete/:productID', component: DeleteProductComponent },
     { path: 'products/create', component: NewProductComponent },
-    { path: '**', redirectTo: '/authentication/login', pathMatch: 'full' },
-    { path: '', redirectTo: '/authentication/login', pathMatch: 'full' },
+    { path: '**', redirectTo: '/auth/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];
