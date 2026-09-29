@@ -1,6 +1,6 @@
 ﻿using eCommerce.Core.DTO;
 using eCommerce.Core.ServiceContracts;
-using FluentValidation;
+using FluentValidation; 
 
 namespace eCommerce.API.APIEndpoints;
 
@@ -31,7 +31,7 @@ public static class ProductAPIEndpoints
             return Results.Ok(product);
         });
 
-        app.MapPost("/add", async (IProductsAdderService productsGetterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
+        app.MapPost("/add", async (IProductsAdderService productsAdderService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
             var result = await validator.ValidateAsync(productAddRequest);
             if(!result.IsValid)
@@ -39,11 +39,11 @@ public static class ProductAPIEndpoints
                 Dictionary<string, string[]> errors = result.Errors.GroupBy(t => t.PropertyName).ToDictionary(l => l.Key, l => l.Select(err => err.ErrorMessage).ToArray());
                 return Results.ValidationProblem(errors);
             }
-            var products = await productsGetterService.AddProduct(productAddRequest);
+            var products = await productsAdderService.AddProduct(productAddRequest);
             return Results.Ok(products);
         });
 
-        app.MapPut("/update", async (IProductsUpdaterService productsGetterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
+        app.MapPut("/update", async (IProductsUpdaterService productsUpdaterService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
             var result = await validator.ValidateAsync(productAddRequest);
             if (!result.IsValid)
@@ -51,8 +51,17 @@ public static class ProductAPIEndpoints
                 Dictionary<string, string[]> errors = result.Errors.GroupBy(t => t.PropertyName).ToDictionary(l => l.Key, l => l.Select(err => err.ErrorMessage).ToArray());
                 return Results.ValidationProblem(errors);
             }
-            var products = await productsGetterService.UpdateProduct(productAddRequest);
+            var products = await productsUpdaterService.UpdateProduct(productAddRequest);
             return Results.Ok(products);
+        });
+
+        app.MapDelete("/delete/{productID:guid}", async (IProductsDeleterService productsDeleterService, Guid productID) =>
+        { 
+            var isDeleted = await productsDeleterService.DeleteProduct(productID);
+            if (isDeleted)
+                return Results.Ok(true);
+            else
+                return Results.Problem("Error during deleting product");
         });
 
         return app;
