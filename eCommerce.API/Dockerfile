@@ -27,6 +27,6 @@ RUN dotnet publish "./eCommerce.API.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV MYSQL_HOST=localhost,
-	MYSQL_PASSWORD=kbiladze
+ENV MYSQL_HOST=localhost
+ENV	MYSQL_PASSWORD=kbiladze
 ENTRYPOINT ["dotnet", "eCommerce.API.dll"]
