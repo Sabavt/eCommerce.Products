@@ -11,7 +11,14 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(option => option.UseMySQL(configuration.GetConnectionString("MySQLConnection")!));
+        string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+        connectionString
+            .Replace("$MYSQL_HOST", 
+            Environment.GetEnvironmentVariable("MYSQL_HOST"))
+            .Replace("$MYSQL_PASSWORD",
+            Environment.GetEnvironmentVariable("MYSQL_PASSWORD"));
+
+        services.AddDbContext<ApplicationDbContext>(option => option.UseMySQL());
         services.AddScoped<IProductsAdderRepository, ProductsAdderRepository>();
         services.AddScoped<IProductsDeleterRepository, ProductsDeleterRepository>();
         services.AddScoped<IProductsGetterRepository, ProductsGetterRepository>();
