@@ -18,7 +18,7 @@ public static class DependencyInjection
             .Replace("$MYSQL_PASSWORD",
             Environment.GetEnvironmentVariable("MYSQL_PASSWORD"));
 
-        services.AddDbContext<ApplicationDbContext>(option => option.UseMySQL());
+        services.AddDbContext<ApplicationDbContext>(option => option.UseMySQL(connectionString));
         services.AddScoped<IProductsAdderRepository, ProductsAdderRepository>();
         services.AddScoped<IProductsDeleterRepository, ProductsDeleterRepository>();
         services.AddScoped<IProductsGetterRepository, ProductsGetterRepository>();
