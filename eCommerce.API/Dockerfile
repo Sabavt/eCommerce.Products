@@ -29,4 +29,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENV MYSQL_HOST=localhost
 ENV	MYSQL_PASSWORD=kbiladze
+ENV MYSQL_USER=root
+ENV MYSQL_DATABASE=ecommerce
+ENV MYSQL_PORT=3306
 ENTRYPOINT ["dotnet", "eCommerce.API.dll"]

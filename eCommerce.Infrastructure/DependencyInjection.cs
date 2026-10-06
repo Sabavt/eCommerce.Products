@@ -11,7 +11,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+        string connectionString = configuration.GetConnectionString("MySQLConnection")!;
         connectionString
             .Replace("$MYSQL_HOST", 
             Environment.GetEnvironmentVariable("MYSQL_HOST"))

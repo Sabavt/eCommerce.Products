@@ -1,6 +1,6 @@
 ﻿using eCommerce.Core.DTO;
 using eCommerce.Core.ServiceContracts;
-using FluentValidation; 
+using FluentValidation;
 
 namespace eCommerce.API.APIEndpoints;
 
@@ -28,18 +28,26 @@ public static class ProductAPIEndpoints
                 t.ProductName.ToLower().Contains(lowerSearchTerm) ||
                 (t.Category != null && t.Category.ToLower().Contains(lowerSearchTerm))
             );
+            if (product == null)
+            {
+                return Results.NotFound($"No product found with name or category containing '{productName}'.");
+            }
             return Results.Ok(product);
         });
 
         app.MapPost("/", async (IProductsAdderService productsAdderService, ProductDTO productAddRequest, IValidator<ProductDTO> validator) =>
         {
             var result = await validator.ValidateAsync(productAddRequest);
-            if(!result.IsValid)
+            if (!result.IsValid)
             {
                 Dictionary<string, string[]> errors = result.Errors.GroupBy(t => t.PropertyName).ToDictionary(l => l.Key, l => l.Select(err => err.ErrorMessage).ToArray());
                 return Results.ValidationProblem(errors);
             }
             var products = await productsAdderService.AddProduct(productAddRequest);
+            if (products == null)
+            {
+                return Results.Problem("Error during adding product.");
+            }
             return Results.Ok(products);
         });
 
@@ -52,11 +60,15 @@ public static class ProductAPIEndpoints
                 return Results.ValidationProblem(errors);
             }
             var products = await productsUpdaterService.UpdateProduct(productAddRequest);
+            if (products == null)
+            {
+                return Results.Problem("Error during updating product.");
+            }
             return Results.Ok(products);
         });
 
         app.MapDelete("/{productID:int}", async (IProductsDeleterService productsDeleterService, int productID) =>
-        { 
+        {
             var isDeleted = await productsDeleterService.DeleteProduct(productID);
             if (isDeleted)
                 return Results.Ok(true);
