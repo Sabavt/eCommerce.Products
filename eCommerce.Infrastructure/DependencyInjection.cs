@@ -11,12 +11,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = configuration.GetConnectionString("MySQLConnection")!;
-        connectionString
-            .Replace("$MYSQL_HOST", 
-            Environment.GetEnvironmentVariable("MYSQL_HOST"))
-            .Replace("$MYSQL_PASSWORD",
-            Environment.GetEnvironmentVariable("MYSQL_PASSWORD"));
+        string connectionString = configuration
+              .GetConnectionString("MySQLConnection")!
+              .Replace("$MYSQL_HOST",
+                  Environment.GetEnvironmentVariable("MYSQL_HOST"))
+              .Replace("$MYSQL_PORT",
+                  Environment.GetEnvironmentVariable("MYSQL_PORT"))
+              .Replace("$MYSQL_DB",
+                  Environment.GetEnvironmentVariable("MYSQL_DB"))
+              .Replace("$MYSQL_USER",
+                  Environment.GetEnvironmentVariable("MYSQL_USER"))
+              .Replace("$MYSQL_PASSWORD",
+                  Environment.GetEnvironmentVariable("MYSQL_PASSWORD"));
 
         services.AddDbContext<ApplicationDbContext>(option => option.UseMySQL(connectionString));
         services.AddScoped<IProductsAdderRepository, ProductsAdderRepository>();
@@ -25,5 +31,5 @@ public static class DependencyInjection
         services.AddScoped<IProductsUpdaterRepository, ProductsUpdaterRepository>();
 
         return services;
-    } 
-} 
+    }
+}
