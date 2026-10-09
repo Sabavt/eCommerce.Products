@@ -7,7 +7,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(plc => plc.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()));
+builder.Services.AddCors(opt => opt.AddDefaultPolicy(plc => plc.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 var app = builder.Build();
 app.UseExceptionMiddleware(); 
