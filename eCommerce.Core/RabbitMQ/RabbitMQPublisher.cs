@@ -1,11 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration; 
 using RabbitMQ.Client;
 
 namespace eCommerce.Core.RabbitMQ;
 
-public class RabbitMQPublisher : IRabbitMQPublisher
+public class RabbitMQPublisher : IRabbitMQPublisher, IDisposable
 {
     private readonly IConfiguration _configuration;
+    private readonly IConnection _connection;
+    private readonly IChannel _channel; 
 
     public RabbitMQPublisher(IConfiguration configuration)
     {
@@ -16,9 +18,18 @@ public class RabbitMQPublisher : IRabbitMQPublisher
         string user = _configuration["RabbitMQ_UserName"]!;
         string pass = _configuration["RabbitMQ_Password"]!;
 
-        new ConnectionFactory() { HostName = hostName, Port = port, UserName = user, Password = pass};
+        var connectionFactory = new ConnectionFactory() { HostName = hostName, Port = port, UserName = user, Password = pass};
+
+        _connection = connectionFactory.CreateConnectionAsync().Result;
+        _channel = _connection.CreateChannelAsync().Result;
     }
-    
+
+    public void Dispose()
+    {
+        _channel.DisposeAsync();
+        _connection.DisposeAsync();
+    }
+
     public void Publish<T>(string routingKey, T message)
     {
         throw new NotImplementedException();
