@@ -2,15 +2,16 @@
 using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Domain.RepositoryContracts;
 using eCommerce.Core.DTO;
+using eCommerce.Core.RabbitMQ;
 using eCommerce.Core.ServiceContracts;
 
 namespace eCommerce.Core.Services;
 
 public class ProductsAdderService : BaseService, IProductsAdderService
 {
-    private readonly IProductsAdderRepository _productsAdderRepository; 
+    private readonly IProductsAdderRepository _productsAdderRepository;
 
-    public ProductsAdderService(IProductsAdderRepository productsAdderRepository, IMapper mapper) : base(mapper)
+    public ProductsAdderService(IProductsAdderRepository productsAdderRepository, IMapper mapper, IRabbitMQPublisher rabbitMQPublisher) : base(mapper, rabbitMQPublisher)
     {
         _productsAdderRepository = productsAdderRepository; 
     }

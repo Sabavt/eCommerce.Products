@@ -37,7 +37,7 @@ public class RabbitMQPublisher : IRabbitMQPublisher, IDisposable
         string messageJson = JsonSerializer.Serialize(message);
         byte[] messageBodyInBytes = Encoding.UTF8.GetBytes(messageJson);
 
-        _channel.ExchangeDeclareAsync("products.exchange", ExchangeType.Direct, true);
-        _channel.BasicPublishAsync("products.exchange", routingKey, messageBodyInBytes);
+        _channel.ExchangeDeclareAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, ExchangeType.Direct, true);
+        _channel.BasicPublishAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, routingKey, messageBodyInBytes);
     }
 } 
