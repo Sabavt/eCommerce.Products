@@ -32,12 +32,12 @@ public class RabbitMQPublisher : IRabbitMQPublisher, IDisposable
         _connection.DisposeAsync();
     }
 
-    public void Publish<T>(string routingKey, T message)
+    public async Task Publish<T>(string routingKey, T message)
     {
         string messageJson = JsonSerializer.Serialize(message);
         byte[] messageBodyInBytes = Encoding.UTF8.GetBytes(messageJson);
 
-        _channel.ExchangeDeclareAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, ExchangeType.Direct, true);
-        _channel.BasicPublishAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, routingKey, messageBodyInBytes);
+        await _channel.ExchangeDeclareAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, ExchangeType.Direct, true);
+        await _channel.BasicPublishAsync(_configuration["RabbitMQ_ProductsMicroservice_Exchange"]!, routingKey, messageBodyInBytes);
     }
 } 
