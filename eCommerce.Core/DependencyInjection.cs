@@ -1,5 +1,6 @@
 ﻿using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Mappers;
+using eCommerce.Core.RabbitMQ;
 using eCommerce.Core.ServiceContracts;
 using eCommerce.Core.Services;
 using FluentValidation;
@@ -20,6 +21,7 @@ public static class DependencyInjection
         services.AddScoped<IProductsUpdaterService, ProductsUpdaterService>();
         services.AddScoped<IProductsDeleterService, ProductsDeleterService>();
         services.AddScoped<IProductsGetterService, ProductsGetterService>();
+        services.AddTransient<IRabbitMQPublisher, RabbitMQPublisher>();
 
         return services;
     } 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration; 
 using RabbitMQ.Client;
+using System.Text;
+using System.Text.Json;
 
 namespace eCommerce.Core.RabbitMQ;
 
@@ -32,6 +34,10 @@ public class RabbitMQPublisher : IRabbitMQPublisher, IDisposable
 
     public void Publish<T>(string routingKey, T message)
     {
-        throw new NotImplementedException();
+        string messageJson = JsonSerializer.Serialize(message);
+        byte[] messageBodyInBytes = Encoding.UTF8.GetBytes(messageJson);
+
+        _channel.ExchangeDeclareAsync("products.exchange", ExchangeType.Direct, true);
+        _channel.BasicPublishAsync("products.exchange", routingKey, messageBodyInBytes);
     }
 } 
