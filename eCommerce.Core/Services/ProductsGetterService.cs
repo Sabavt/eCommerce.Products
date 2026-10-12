@@ -2,6 +2,7 @@
 using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Domain.RepositoryContracts;
 using eCommerce.Core.DTO;
+using eCommerce.Core.RabbitMQ;
 using eCommerce.Core.ServiceContracts;
 using System.Linq.Expressions;
 
@@ -11,7 +12,7 @@ public class ProductsGetterService : BaseService, IProductsGetterService
 { 
     private readonly IProductsGetterRepository _productsGetterRepository; 
 
-    public ProductsGetterService(IProductsGetterRepository productsGetterRepository, IMapper mapper) : base(mapper)
+    public ProductsGetterService(IProductsGetterRepository productsGetterRepository, IMapper mapper, IRabbitMQPublisher rabbitMQPublisher) : base(mapper, rabbitMQPublisher)
     {
         _productsGetterRepository = productsGetterRepository; 
     }

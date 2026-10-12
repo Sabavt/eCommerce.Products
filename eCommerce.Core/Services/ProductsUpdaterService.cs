@@ -3,6 +3,7 @@ using eCommerce.Core.Domain.Entities;
 using eCommerce.Core.Domain.RepositoryContracts;
 using eCommerce.Core.DTO;
 using eCommerce.Core.RabbitMQ;
+using eCommerce.Core.RabbitMQ.Messages;
 using eCommerce.Core.ServiceContracts;
 
 namespace eCommerce.Core.Services;
@@ -23,7 +24,7 @@ public class ProductsUpdaterService : BaseService, IProductsUpdaterService
         if(result != null)
         {
             ProductNameUpdateMessage productName = new(result.ProductName);
-            _rabbitMQPublisher.Publish("products.update.ProductName", productName);
+            await _rabbitMQPublisher.Publish("products.update.ProductName", productName);
         }
 
         if (result is not null)
