@@ -23,7 +23,7 @@ public class ProductsUpdaterService : BaseService, IProductsUpdaterService
         var result = await _productsUpdaterRepository.UpdateProduct(product);
         if(result != null)
         {
-            ProductNameUpdateMessage productName = new(result.ProductName);
+            ProductNameUpdateMessage productName = new(result.ProductName, result.ProductID);
             await _rabbitMQPublisher.Publish("products.update.ProductName", productName);
         }
 
