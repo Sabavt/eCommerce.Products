@@ -20,7 +20,7 @@ public class ProductsDeleterService : BaseService, IProductsDeleterService
         var isDeleted = await _productsDeleterRepository.DeleteProduct(productIDtoDelete);
 
         ProductDeletedMessage productDeletedMessage = new(productIDtoDelete);
-        await _rabbitMQPublisher.Publish("products.delete.productid", productIDtoDelete);
+        await _rabbitMQPublisher.Publish("products.delete", productIDtoDelete);
 
         if (isDeleted)
             return true;
