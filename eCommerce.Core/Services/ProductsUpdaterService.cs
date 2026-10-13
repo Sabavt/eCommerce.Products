@@ -22,9 +22,8 @@ public class ProductsUpdaterService : BaseService, IProductsUpdaterService
         var product = _mapper.Map<Product>(productToUpdate);
         var result = await _productsUpdaterRepository.UpdateProduct(product);
         if(result != null)
-        {
-            ProductNameUpdateMessage productName = new(result.ProductName, result.ProductID);
-            await _rabbitMQPublisher.Publish("products.update.ProductName", productName);
+        { 
+            await _rabbitMQPublisher.Publish("products.update.ProductName", productToUpdate);
         }
 
         if (result is not null)

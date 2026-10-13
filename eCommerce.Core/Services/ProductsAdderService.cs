@@ -22,9 +22,8 @@ public class ProductsAdderService : BaseService, IProductsAdderService
         var product = _mapper.Map<Product>(productToAdd);
 
         var added_product = await _productsAdderRepository.AddProduct(product);
-
-        ProductAddedMessage productAddedMessage = new(added_product!.ProductName, added_product.ProductID);
-        await _rabbitMQPublisher.Publish("product.added", productAddedMessage);
+         
+        await _rabbitMQPublisher.Publish("product.added", productToAdd);
 
         if (product is null)
             return null;
